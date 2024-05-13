@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.springbatch.proyectotarifamicro.model.Productos;
+import com.springbatch.proyectotarifamicro.model.Tarifas;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,34 +17,54 @@ import lombok.extern.slf4j.Slf4j;
 
 public class Reader {
 
-	private List<Productos> readCsv(String filePath) throws IOException {
-		List<Productos> productosList = new ArrayList<>();
+	public List<Tarifas> readCsvFiles() throws IOException {
+		List<Tarifas> tarifaList = new ArrayList<>();
+
+		List<Tarifas> tarifasCsv = itemReader(
+				"C:\\Users\\6003036\\Documents\\proyectos de Eclipse\\tarifamicro\\src\\main\\resources\\outputTarifas.csv");
+		log.info("Ruta leída correctamente");
+
+		for (int i = 0; i < tarifasCsv.size(); i++) {
+			Tarifas tarifaCsv = tarifasCsv.get(i);
+
+			Tarifas tarifas = new Tarifas();
+			tarifas.setId(tarifaCsv.getId());
+			tarifas.setNombre(tarifaCsv.getNombre());
+			tarifas.setPrecio(tarifaCsv.getPrecio());
+
+			tarifaList.add(tarifas);
+		}
+
+		return tarifaList;
+	}
+
+	private List<Tarifas> itemReader(String filePath) throws IOException {
+		List<Tarifas> tarifasList = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 			String line;
+			int contador = 0;
+			log.info("El archivo CSV se está leyendo...");
 			while ((line = br.readLine()) != null) {
 				String[] fields = line.split(";");
-				Productos producto = new Productos();
-				if (fields.length == 7) {
-					producto.setId(Long.parseLong(fields[0].trim()));
-					producto.setLugar(fields[1].trim());
-					producto.setStock(Integer.parseInt(fields[2].trim()));
-					producto.setStockReal(Integer.parseInt(fields[3].trim()));
-					producto.setStockVirtual(Integer.parseInt(fields[4].trim()));
-					producto.setCodigo(Long.parseLong(fields[5].trim()));
-					producto.setNombre(fields[6].trim());
+				Tarifas tarifa = new Tarifas();
+				if (fields.length == 3) {
 
-					producto.setCodigo(Long.parseLong(fields[3].trim()));
-					producto.setNombre(fields[0].trim());
-					productosList.add(producto);
-					log.info("El archivo CSV ha sido leído con éxito.");
+					tarifa.setId(Long.parseLong(fields[0].trim()));
+					tarifa.setNombre(fields[1]);
+					tarifa.setPrecio(Double.parseDouble(fields[2].trim()));
+
+					tarifasList.add(tarifa);
+					contador++;
 				}
 
 				else {
 					log.error("Error: Número de campos incorrecto en la línea: " + line);
 				}
 			}
+
+			log.info("Se han añadido " + contador + " productos.");
 		}
-		return productosList;
+		return tarifasList;
 	}
 
 }
