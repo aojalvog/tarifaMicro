@@ -21,6 +21,10 @@ public class ProductosServiceImpl implements ProductosService {
 	@Autowired
 	Reader reader;
 
+	/**
+	 * Método que recorre el mapa de catálogo y devuelve los valores pasándolos a
+	 * una lista.
+	 */
 	@Override
 	public List<Productos> getCatalogo() {
 
@@ -33,6 +37,11 @@ public class ProductosServiceImpl implements ProductosService {
 		return Optional.empty();
 	}
 
+	/**
+	 * Método {@link Optional} que guarda los productos {@link Productos}. Comprueba
+	 * si el id de la tarifa existe en algún producto y, si existe, le asigna el
+	 * precio y el nombre de la tarifa
+	 */
 	@Override
 	public Optional<List<Productos>> saveCatalogo(List<Productos> productos) throws IOException {
 		log.info("Entrando en saveCatalogo");
