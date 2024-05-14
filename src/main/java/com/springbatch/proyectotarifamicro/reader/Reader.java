@@ -19,9 +19,19 @@ import lombok.extern.slf4j.Slf4j;
 
 public class Reader {
 
+	/**
+	 * Método para leer el CSV
+	 * 
+	 * @return Mapa {@link Maps} de Tarifas {@link Tarifas} lleno.
+	 * @throws IOException
+	 */
+
 	public Map<Long, Tarifas> itemReader() throws IOException {
+
+		// Ruta absoluta del archivo que se va a leer.
 		String filePath = "C:\\Users\\6003036\\Documents\\proyectos de Eclipse\\tarifamicro\\src\\main\\resources\\outputTarifas.csv";
 
+		// Se crea un buffer que lee el fichero.
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 
 			String line;
@@ -29,6 +39,8 @@ public class Reader {
 			log.info("El archivo CSV se está leyendo...");
 			while ((line = br.readLine()) != null) {
 				String[] fields = line.split(";");
+				// Se crea un objeto de Tarifa al que se le setean los valores que se encuentran
+				// en el CSV y después se le añaden al mapa.
 				Tarifas tarifa = new Tarifas();
 				if (fields.length == 3) {
 

@@ -21,10 +21,24 @@ public class ProductosController {
 	@Autowired
 	ProductosService productosService;
 
+	/**
+	 * Método GET del Catálogo para recibir todos los productos {@link Productos}
+	 * del mismo.
+	 * 
+	 * @return todos los productos disponibles
+	 */
 	@GetMapping("/getCatalogo")
 	public ResponseEntity<List<Productos>> findAll() {
 		return ResponseEntity.ok(productosService.getCatalogo());
 	}
+
+	/**
+	 * Método POST del catálogo. Sirve para añadir productos {@link Productos}
+	 * 
+	 * @param productos
+	 * @return devuelve el método saveCatalogo de {@link ProductosService}
+	 * @throws IOException
+	 */
 
 	@PostMapping("/postCatalogo")
 	public Optional<List<Productos>> postCatalogo(@RequestBody List<Productos> productos) throws IOException {
