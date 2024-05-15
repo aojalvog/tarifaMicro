@@ -12,5 +12,6 @@ public class Tarifas {
 	private Long id;
 	private String nombre;
 	private Double precio;
+	private Double iva;
 
 }
