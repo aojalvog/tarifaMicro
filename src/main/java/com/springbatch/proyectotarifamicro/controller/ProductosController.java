@@ -15,7 +15,6 @@ import com.springbatch.proyectotarifamicro.model.Productos;
 import com.springbatch.proyectotarifamicro.service.ProductosService;
 
 @RestController
-// @RequestMapping("/api")
 public class ProductosController {
 
 	@Autowired
@@ -47,5 +46,3 @@ public class ProductosController {
 	}
 
 }
-
-

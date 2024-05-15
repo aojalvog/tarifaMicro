@@ -52,6 +52,7 @@ public class Reader {
 					contador++;
 					String isEmpty;
 
+					// log para comprobar si el mapa se rellena correctamente
 					if (Maps.getTarifas().isEmpty()) {
 						isEmpty = "VACÍO";
 					} else {
