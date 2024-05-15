@@ -54,6 +54,7 @@ public class Maps {
 	 */
 
 	public static void addCatalogo(Long id, Productos producto) {
+//		Map total = new HashMap(mapaProductos.get(producto).getPrecio())
 		mapaProductos.put(producto.getId(), producto);
 	}
 

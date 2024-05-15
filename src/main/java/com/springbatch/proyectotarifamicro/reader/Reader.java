@@ -29,7 +29,7 @@ public class Reader {
 	public Map<Long, Tarifas> itemReader() throws IOException {
 
 		// Ruta absoluta del archivo que se va a leer.
-		String filePath = "C:\\Users\\6003036\\Desktop\\Caliope\\ficheros\\AutomatizacionCaliope\\ficherosEntrada\\outputTarifas.csv";
+		String filePath = "outputTarifas.csv";
 
 		// Se crea un buffer que lee el fichero.
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -42,11 +42,12 @@ public class Reader {
 				// Se crea un objeto de Tarifa al que se le setean los valores que se encuentran
 				// en el CSV y después se le añaden al mapa.
 				Tarifas tarifa = new Tarifas();
-				if (fields.length == 3) {
+				if (fields.length == 4) {
 
 					tarifa.setId(Long.parseLong(fields[0].trim()));
 					tarifa.setNombre(fields[1]);
 					tarifa.setPrecio(Double.parseDouble(fields[2].trim()));
+					tarifa.setIva(Double.parseDouble(fields[3].trim()));
 
 					Maps.getTarifas().put(tarifa.getId(), tarifa);
 					contador++;

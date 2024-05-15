@@ -16,8 +16,6 @@ public interface ProductosService {
 
 	List<Productos> getCatalogo();
 
-	Optional<Productos> getProductoById(Productos producto);
-
 	// Métodos POST
 
 	Optional<List<Productos>> saveCatalogo(List<Productos> producto) throws IOException;
