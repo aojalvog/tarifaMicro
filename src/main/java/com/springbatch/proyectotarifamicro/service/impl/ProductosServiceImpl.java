@@ -30,13 +30,9 @@ public class ProductosServiceImpl implements ProductosService {
 	@Override
 	public List<Productos> getCatalogo() {
 
-		return Maps.getCatalogo().values().stream().toList();
-	}
+		log.info("----ACCEDIENDO AL CATÁLOGO----");
 
-	@Override
-	public Optional<Productos> getProductoById(Productos producto) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return Maps.getCatalogo().values().stream().toList();
 	}
 
 	/**
@@ -46,14 +42,19 @@ public class ProductosServiceImpl implements ProductosService {
 	 */
 	@Override
 	public Optional<List<Productos>> saveCatalogo(List<Productos> productos) throws IOException {
-		log.info("Entrando en saveCatalogo");
+		log.info("----GUARDANDO EL PRODUCTO----");
 
 		for (int i = 0; i < productos.size(); i++) {
 
 			if (Optional.ofNullable(Maps.getTarifas().get(productos.get(i).getId())).isPresent()) {
 
 				productos.get(i).setNombreTarifa(Maps.getTarifas().get(productos.get(i).getId()).getNombre());
-				productos.get(i).setPrecio(Maps.getTarifas().get(productos.get(i).getId()).getPrecio());
+
+				// Cálculo del IVA para seterarlo a los productos
+				double precio = Maps.getTarifas().get(productos.get(i).getId()).getPrecio();
+				double iva = Maps.getTarifas().get(productos.get(i).getId()).getIva();
+				double precioConIva = precio * (1 + (iva / 100));
+				productos.get(i).setPrecio(precioConIva);
 
 				Maps.getCatalogo().put(productos.get(i).getId(), productos.get(i));
 
@@ -61,6 +62,7 @@ public class ProductosServiceImpl implements ProductosService {
 
 		}
 
+		log.info("----" + Maps.getCatalogo().size() + " PRODUCTOS GUARDADOS----");
 		return Optional.of(productos);
 	}
 
