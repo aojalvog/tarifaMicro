@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springbatch.proyectotarifamicro.maps.Maps;
@@ -18,8 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductosServiceImpl implements ProductosService {
 
-	@Autowired
-	Reader reader;
+	private Reader reader;
+
+	public ProductosServiceImpl(Reader reader) {
+		this.reader = reader;
+	}
 
 	/**
 	 * Método que recorre el mapa de catálogo y devuelve los valores pasándolos a

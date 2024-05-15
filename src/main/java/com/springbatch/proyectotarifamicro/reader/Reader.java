@@ -29,7 +29,7 @@ public class Reader {
 	public Map<Long, Tarifas> itemReader() throws IOException {
 
 		// Ruta absoluta del archivo que se va a leer.
-		String filePath = "C:\\Users\\6003036\\Documents\\proyectos de Eclipse\\tarifamicro\\src\\main\\resources\\outputTarifas.csv";
+		String filePath = "C:\\Users\\6003036\\Desktop\\Caliope\\ficheros\\AutomatizacionCaliope\\ficherosEntrada\\outputTarifas.csv";
 
 		// Se crea un buffer que lee el fichero.
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -52,6 +52,7 @@ public class Reader {
 					contador++;
 					String isEmpty;
 
+					// log para comprobar si el mapa se rellena correctamente
 					if (Maps.getTarifas().isEmpty()) {
 						isEmpty = "VACÍO";
 					} else {
